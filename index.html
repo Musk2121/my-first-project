@@ -1,9 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Website</title>
+    <title>Trading App</title>
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            margin: 20px auto;
+            width: 320px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .price {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .buy { background: green; color: white; }
+        .sell { background: red; color: white; }
+    </style>
 </head>
 <body>
-    <h1>Hello World 🚀</h1>
+
+    <h1>📊 Trading Dashboard</h1>
+
+    <div class="card">
+        <h2>BTC/USD</h2>
+        <div class="price" id="price">$30,000</div>
+
+        <button class="buy" onclick="buy()">Buy</button>
+        <button class="sell" onclick="sell()">Sell</button>
+
+        <p id="balance">Balance: $10,000</p>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        let balance = 10000;
+        let price = 30000;
+
+        function updateUI() {
+            document.getElementById("balance").innerText = "Balance: $" + balance;
+            document.getElementById("price").innerText = "$" + price.toFixed(2);
+        }
+
+        // Simulate live price movement
+        setInterval(() => {
+            let change = (Math.random() - 0.5) * 200;
+            price += change;
+            if (price < 1000) price = 1000;
+            updateUI();
+        }, 2000);
+
+        function buy() {
+            if (balance >= 1000) {
+                balance -= 1000;
+                document.getElementById("status").innerText = "✔ Bought at $" + price.toFixed(2);
+                updateUI();
+            } else {
+                alert("Not enough balance!");
+            }
+        }
+
+        function sell() {
+            balance += 1000;
+            document.getElementById("status").innerText = "✔ Sold at $" + price.toFixed(2);
+            updateUI();
+        }
+
+        updateUI();
+    </script>
+
 </body>
 </html>
